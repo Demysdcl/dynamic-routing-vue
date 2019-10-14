@@ -15,7 +15,7 @@
 </template>
 
 <script>
-const response = require.context('./views', true, /^((?!vue).)*$/)
+const response = require.context('./views', true, /^((?!vue).)*$/, 'lazy')
 export default {
 
   methods: {
