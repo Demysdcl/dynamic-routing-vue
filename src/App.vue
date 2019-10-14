@@ -2,11 +2,31 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+
+      <router-link v-for="(view, index) in getViews()"
+        :key="`route-link-${index}`"
+        :to="`/${view.toLowerCase()}`">
+          {{ view }}
+          <span v-if="index !== getViews().length - 1"> | </span>
+      </router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+const response = require.context('./views', true, /^((?!vue).)*$/)
+export default {
+
+  methods: {
+    getViews () {
+      return response.keys()
+        .map(item => item.replace('./', ''))
+        .filter(item => item !== 'Home')
+    }
+  }
+}
+</script>
 
 <style>
 #app {
